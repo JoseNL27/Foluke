@@ -7,23 +7,34 @@ module.exports = {
 	async execute(interaction) {
 		//const target = interaction.options.getUser('target');
 		//const reason = interaction.options.getString('reason') ?? 'No reason provided';
-        const Button1 = await require('../../API/SFReccom.js')
+		const ExitData  = await require('../../API/SFReccom.js');
+		const Button1Name = ExitData.firstPlaylistNameS;
+		const Button1Link = ExitData.firstPlaylistLinkS;
+		const Button2Name = ExitData.secondPlaylistNameS;
+		const Button2Link = ExitData.secondPlaylistLinkS;
+		const Button3Name = ExitData.thirdPlaylistNameS;
+		const Button3Link = ExitData.thirdPlaylistLinkS;
 
-		const confirm = new ButtonBuilder()
-			.setLabel(`${Button1}`)
-			.setURL('https://google.es')
+		const button = new ButtonBuilder()
+			.setLabel(`${Button1Name}`)
+			.setURL(`${Button1Link}`)
 			.setStyle(ButtonStyle.Link);
 
-        const button = new ButtonBuilder()
-            .setLabel('discord.js docs')
-            .setURL('https://discord.js.org')
+        const button1 = new ButtonBuilder()
+            .setLabel(`${Button2Name}`)
+            .setURL(`${Button2Link}`)
+            .setStyle(ButtonStyle.Link);
+
+		const button2 = new ButtonBuilder()
+            .setLabel(`${Button3Name}`)
+            .setURL(`${Button3Link}`)
             .setStyle(ButtonStyle.Link);
 
 		const row = new ActionRowBuilder()
-			.addComponents(button, confirm);
+			.addComponents(button, button1, button2);
 
 		await interaction.reply({
-			content: `Aqui te dejo unas playlists populares en tu país:`,
+			content: `Aquí te dejo unas playlists populares en tu país:`,
 			components: [row],
 		});
 	},
